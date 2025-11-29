@@ -24,7 +24,9 @@ class Health
     
     fill(lerpColor(this.cEmpty, this.cMax, this.prevHp / 100));
     
-    rect(this.x, this.y, (this.prevHp)*1.3, h*0.025, 3)
+    let canvasScale = scaleToCanvas(true);  
+    translate(this.x, this.y);
+    rect(0, 0, (this.prevHp)*1.3 * canvasScale, h*0.025, 3)
     
     
     pop();
@@ -37,6 +39,7 @@ class Health
     {
       this.hp = 0;
       isOver = true;
+      frame = 0;
     }
     
     
