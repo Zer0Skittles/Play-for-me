@@ -1,5 +1,5 @@
-let w = 600;
-let h = 400;
+let w;
+let h;
 //      GAME STATES
 let atMainMenu = true;
 let isPaused = false;
@@ -198,18 +198,28 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(w, h);
+  createCanvas(windowWidth*0.81, windowWidth*0.54);
   textAlign(CENTER);
   imageMode(CENTER);
-  angleMode(DEGREES);
+  angleMode(DEGREES); 
+
+  w = width; // adapts w variable to match canvas width
+  h = height; // adapts h variable to match canvas height
   
   health = new Health(w*0.5,h*0.93);
 
-  hpRef = health.hp;
+  hpRef = health.hp; // stores initial player health
+
+
   
 }
 
 function draw() {
+
+  adjustCanvas(); // rescales canvas according to host window;
+  w = width; // adapts w variable to match canvas width
+  h = height; // adapts h variable to match canvas height
+
   if (atMainMenu) // Main Menu -----------------------------
   {
     push();
@@ -1010,4 +1020,8 @@ function getKeyAtIndex(i, isKey)
   }
   return controlList[controlState][cIndx];
   
+}
+
+function adjustCanvas() { // dynamically adjusts canvas size based on window size
+  resizeCanvas(windowWidth*0.81, windowWidth*0.54);
 }
