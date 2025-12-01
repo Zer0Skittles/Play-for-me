@@ -133,6 +133,10 @@ let projSpeed = 1;
     let displayImg;
     let gameOverImg = [];
 
+  // Ending Visual Assets
+
+    let endImage;
+
   // Fonts
 
     let font_CM;
@@ -193,7 +197,8 @@ function preload() {
     {
       append(gameOverImg, loadImage('assets/art/menus/game_over/000' + j + '.png'));
     }
-
+  // ending image
+    endImage = loadImage('assets/art/menus/game_win/ending.png');
 }
 
 function setup() {
@@ -519,6 +524,10 @@ function levelProgress() {
   if (displayIX == 1) { text(progPercent + '%',w*0.5,h*0.1); }
   
   pop()
+
+  if(progPercent === 101){ // trigers ending at 101% of completion
+    isOver = true;
+  }
 }
 
 // Music Functions --------------------------------------------------------------------------
@@ -646,13 +655,28 @@ function gamePaused()
 
 function gameOver()
 {
+
+
   //Called in draw
   frame++;
-  translate(w/2, h/2);
-  scale(0.5);
-  scale(scaleToCanvas());
-  image(hellScape, 0, 0);
-  image(gameOverImg[int(frame / 16) % gameOverImg.length], 0, 0);
+
+  if(progPercent > 100){
+    image(endImage,w*0.5,h*0.5,w*1,h*1);
+    push()
+    textSize(w*0.02);
+    fill(131,87,189);
+    textFont(font_CM);
+    stroke(0);
+    strokeWeight(w*0.005);
+    text('[press SPACE to restart]',w*0.5,h*0.9);
+    pop()
+  } else {
+    translate(w/2, h/2);
+    scale(0.5);
+    scale(scaleToCanvas());
+    image(hellScape, 0, 0);
+    image(gameOverImg[int(frame / 16) % gameOverImg.length], 0, 0);
+  }
   
 }
 
